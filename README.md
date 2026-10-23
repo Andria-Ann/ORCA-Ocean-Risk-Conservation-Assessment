@@ -25,9 +25,9 @@ ORCA is a Big Data-driven marine ecosystem risk assessment and conservation deci
 
 | Member | Responsibility |
 |---|---|
-| Member 1 | Hadoop and HDFS |
-| Member 2 | Spark processing |
-| Siva Pournami | Hive and analytical queries |
+| Nayana Rose TS | Hadoop and HDFS |
+| Helna AD | Spark processing |
+| Siva Pournami PB | Hive and analytical queries |
 | Anavadhya R | Clustering and risk analysis |
 | Andria Ann Biju | Interactive dashboard and frontend |
 
