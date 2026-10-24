@@ -1,0 +1,24 @@
+MARINE RISK ANALYSIS PROJECT
+Global Plastics Production Analysis
+=============================================
+
+Years covered: 1950–2015
+Total records: 66
+Initial production: 2 million tonnes
+Final production: 381 million tonnes
+Minimum production: 2 million tonnes
+Maximum production: 381 million tonnes
+Average production: 118.53 million tonnes
+Percentage change: 18950.00%
+
+PRODUCTION CLUSTER SUMMARY
+---------------------------------------------
+                    Number_of_Records  Average_Production  Minimum_Production  Maximum_Production
+Production_Cluster                                                                               
+High Production                    13              306.15                 241                 381
+Low Production                     37               35.00                   2                  96
+Medium Production                  16              159.25                 104                 231
+
+
+LIMITATION
+This dataset measures global plastics production, not direct marine pollution or ocean risk. The clusters represent production levels only.

@@ -1,0 +1,4 @@
+Production_Cluster,Number_of_Records,Average_Production,Minimum_Production,Maximum_Production
+High Production,13,306.15,241,381
+Low Production,37,35.0,2,96
+Medium Production,16,159.25,104,231
