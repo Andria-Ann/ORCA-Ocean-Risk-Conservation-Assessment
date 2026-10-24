@@ -44,6 +44,8 @@ import {
   SlidersHorizontal,
   CircleDollarSign,
   Target,
+  Menu,
+  X,
 } from "lucide-react";
 
 import "leaflet/dist/leaflet.css";
@@ -203,19 +205,28 @@ const riskColor = (risk) =>
 // MAP HELPERS
 // --------------------------------------------------
 
-function MapResize() {
+
+function MapResize({ active }) {
   const map = useMap();
 
   useEffect(() => {
+    if (!active) return;
+
     const timer = setTimeout(() => {
       map.invalidateSize();
-    }, 300);
+    }, 250);
 
-    return () => clearTimeout(timer);
-  }, [map]);
+    window.addEventListener("resize", map.invalidateSize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", map.invalidateSize);
+    };
+  }, [map, active]);
 
   return null;
 }
+
 
 function FlyToZone({ zone }) {
   const map = useMap();
@@ -223,14 +234,20 @@ function FlyToZone({ zone }) {
   useEffect(() => {
     if (!zone) return;
 
-    map.flyTo([zone.lat, zone.lng], 10, {
-      duration: 0.8,
-    });
+    const lat = Number(zone.lat);
+    const lng = Number(zone.lng);
+
+    // Prevent the map from receiving invalid coordinates
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+      console.error("Invalid coordinates for selected zone:", zone);
+      return;
+    }
+
+    map.flyTo([lat, lng], 9, { duration: 1.2 });
   }, [map, zone]);
 
   return null;
 }
-
 // --------------------------------------------------
 // REUSABLE UI COMPONENTS
 // --------------------------------------------------
@@ -293,6 +310,24 @@ export default function App() {
   const [horizon, setHorizon] = useState(30);
   const [activeFinance, setActiveFinance] = useState("Allocation");
   const [showHeat, setShowHeat] = useState(true);
+  const [activePage, setActivePage] = useState("overview");
+const [drawerOpen, setDrawerOpen] = useState(false);
+
+const pageTitles = {
+  overview: "Overview",
+  geospatial: "Geospatial Explorer",
+  intelligence: "Ocean Intelligence",
+  finance: "Finance & Allocation",
+  register: "Coastal Risk Register",
+};
+
+const navigation = [
+  { id: "overview", label: "Overview", icon: Globe2 },
+  { id: "geospatial", label: "Geospatial Explorer", icon: Satellite },
+  { id: "intelligence", label: "Ocean Intelligence", icon: Activity },
+  { id: "finance", label: "Finance & Allocation", icon: Wallet },
+  { id: "register", label: "Coastal Risk Register", icon: Layers3 },
+];
 
   const selected = zones.find((z) => z.id === selectedId) || zones[0];
 
@@ -390,6 +425,26 @@ export default function App() {
     { name: "Biodiversity", value: 20 },
     { name: "Monitoring", value: 10 },
   ];
+  
+const riskDistribution = [
+  {
+    name: "High risk",
+    value: zones.filter((z) => z.risk >= 70).length,
+  },
+  {
+    name: "Moderate risk",
+    value: zones.filter((z) => z.risk >= 50 && z.risk < 70).length,
+  },
+  {
+    name: "Low risk",
+    value: zones.filter((z) => z.risk < 50).length,
+  },
+];
+
+const riskRanking = [...zones]
+  .sort((a, b) => b.risk - a.risk)
+  .slice(0, 5);
+
 
   // --------------------------------------------------
   // CSV EXPORT
@@ -453,82 +508,106 @@ export default function App() {
     <div className="orca-visual-app">
       {/* SIDEBAR */}
 
-      <aside className="visual-sidebar">
-        <div className="visual-brand">
-          <div className="visual-brand-icon">
-            <Waves size={23} />
-          </div>
+      {/* MOBILE DRAWER BACKDROP */}
+{drawerOpen && (
+  <button
+    className="visual-drawer-backdrop"
+    aria-label="Close navigation"
+    onClick={() => setDrawerOpen(false)}
+  />
+)}
 
-          <div>
-            <strong>
-              ORCA<span>.</span>
-            </strong>
-            <small>OCEAN INTELLIGENCE</small>
-          </div>
-        </div>
+{/* SIDEBAR / NAVIGATION DRAWER */}
+<aside
+  className={`visual-sidebar ${drawerOpen ? "drawer-open" : ""}`}
+>
+  <div className="visual-brand">
+    <div className="visual-brand-icon">
+      <Waves size={23} />
+    </div>
 
-        <div className="visual-side-label">
-          MISSION CONTROL
-        </div>
+    <div className="visual-brand-text">
+      <strong>
+        ORCA<span>.</span>
+      </strong>
+      <small>OCEAN INTELLIGENCE</small>
+    </div>
 
-        <a className="visual-nav active" href="#overview">
-          <Globe2 size={17} /> Overview
-        </a>
+    <button
+      className="visual-drawer-close"
+      aria-label="Close navigation"
+      onClick={() => setDrawerOpen(false)}
+    >
+      <X size={19} />
+    </button>
+  </div>
 
-        <a className="visual-nav" href="#geospatial">
-          <Satellite size={17} /> Geospatial explorer
-        </a>
+  <div className="visual-side-label">MISSION CONTROL</div>
 
-        <a className="visual-nav" href="#forecast">
-          <Activity size={17} /> Risk forecast
-        </a>
+  <nav className="visual-navigation">
+    {navigation.map(({ id, label, icon: Icon }) => (
+      <button
+        key={id}
+        className={`visual-nav ${
+          activePage === id ? "active" : ""
+        }`}
+        aria-current={activePage === id ? "page" : undefined}
+        onClick={() => {
+          setActivePage(id);
+          setDrawerOpen(false);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        <Icon size={17} />
+        <span>{label}</span>
+      </button>
+    ))}
+  </nav>
 
-        <a className="visual-nav" href="#environment">
-          <Waves size={17} /> Ocean signals
-        </a>
+  <div className="visual-sidebar-bottom">
+    <div className="visual-online">
+      <i /> DEMO ENVIRONMENT
+    </div>
 
-        <a className="visual-nav" href="#finance">
-          <Wallet size={17} /> Finance optimizer
-        </a>
+    <p>
+      Big Data pipeline
+      <br />
+      <strong>Ready for integration</strong>
+    </p>
 
-        <a className="visual-nav" href="#register">
-          <Layers3 size={17} /> Risk register
-        </a>
-
-        <div className="visual-sidebar-bottom">
-          <div className="visual-online">
-            <i /> DEMO ENVIRONMENT
-          </div>
-
-          <p>
-            Big Data pipeline
-            <br />
-            <strong>Ready for integration</strong>
-          </p>
-
-          <small>Hadoop · Hive · Spark</small>
-        </div>
-      </aside>
+    <small>Hadoop · Hive · Spark</small>
+  </div>
+</aside>
 
       {/* MAIN CONTENT */}
 
       <main className="visual-main">
         <header className="visual-topbar">
-          <div>
-            <span className="visual-breadcrumb">ORCA /</span>{" "}
-            Kerala coastal observatory
-          </div>
+  <div className="visual-top-left">
+    <button
+      className="visual-menu-button"
+      aria-label="Open navigation"
+      onClick={() => setDrawerOpen(true)}
+    >
+      <Menu size={20} />
+    </button>
 
-          <div className="visual-top-right">
-            <i /> SYSTEM ONLINE
-            <span className="visual-top-sep" />
-            ANALYTICS DEMO
-          </div>
-        </header>
+    <div>
+      <span className="visual-breadcrumb">ORCA /</span>{" "}
+      {pageTitles[activePage]}
+    </div>
+  </div>
+
+  <div className="visual-top-right">
+    <i /> SYSTEM ONLINE
+    <span className="visual-top-sep" />
+    ANALYTICS DEMO
+  </div>
+</header>
 
         {/* HERO */}
 
-        <section className="visual-hero" id="overview">
+        <section className="visual-hero" id="overview" hidden={activePage !== "overview"}>
           <div>
             <div className="visual-eyebrow">
               <span /> OCEAN RISK & CONSERVATION ASSESSMENT
@@ -560,7 +639,7 @@ export default function App() {
 
         {/* SUMMARY CARDS */}
 
-        <section className="visual-stats">
+        <section className="visual-stats" hidden={activePage !== "overview"}>
           <StatCard
             icon={MapPin}
             label="ZONES MONITORED"
@@ -601,12 +680,258 @@ export default function App() {
             color="#b7a0fa"
           />
         </section>
+        
+{/* OVERVIEW ANALYTICS */}
+
+<section
+  className="visual-overview-analytics"
+  hidden={activePage !== "overview"}
+>
+  <SectionTitle
+    eyebrow="01 / OCEAN INTELLIGENCE"
+    title="Environmental insights"
+    description="A consolidated view of coastal risk, environmental pressure and conservation priorities."
+    icon={Activity}
+  />
+
+  <div className="visual-overview-chart-grid">
+    {/* RISK DISTRIBUTION */}
+    <article className="visual-panel visual-overview-chart-card">
+      <div className="visual-overview-card-heading">
+        <div>
+          <h3>Coastal risk distribution</h3>
+          <p>Zones grouped by risk score</p>
+        </div>
+        <ShieldAlert size={18} />
+      </div>
+
+      <div className="visual-chart visual-overview-donut">
+        <ResponsiveContainer width="100%" height={230}>
+          <PieChart>
+            <Pie
+              data={riskDistribution}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="45%"
+              innerRadius={55}
+              outerRadius={82}
+              paddingAngle={4}
+              stroke="none"
+            >
+              {riskDistribution.map((item, index) => (
+                <Cell
+                  key={item.name}
+                  fill={["#ff8588", "#e9bd69", "#67d5a7"][index]}
+                />
+              ))}
+            </Pie>
+            <Tooltip
+              contentStyle={{
+                background: "#112330",
+                border: "1px solid #3b525f",
+                borderRadius: 8,
+                color: "#e3eef2",
+              }}
+            />
+            <Legend
+              verticalAlign="bottom"
+              wrapperStyle={{ fontSize: 11, color: "#9bb0bc" }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </article>
+
+    {/* RISK RANKING */}
+    <article className="visual-panel visual-overview-chart-card">
+      <div className="visual-overview-card-heading">
+        <div>
+          <h3>Coastal risk ranking</h3>
+          <p>Five highest-scoring sample locations</p>
+        </div>
+        <TrendingUp size={18} />
+      </div>
+
+      <div className="visual-overview-ranking">
+        {riskRanking.map((zone, index) => (
+          <button
+            className="visual-overview-ranking-row"
+            key={zone.id}
+            onClick={() => {
+              setSelectedId(zone.id);
+              setActivePage("geospatial");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            <span className="visual-overview-rank">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            <span className="visual-overview-rank-info">
+              <strong>{zone.name}</strong>
+              <i>
+                <b
+                  style={{
+                    width: `${zone.risk}%`,
+                    background: riskColor(zone.risk),
+                  }}
+                />
+              </i>
+            </span>
+
+            <strong style={{ color: riskColor(zone.risk) }}>
+              {zone.risk}
+            </strong>
+
+            <ArrowUpRight size={14} />
+          </button>
+        ))}
+      </div>
+    </article>
+
+    {/* ENVIRONMENTAL TREND */}
+    <article className="visual-panel visual-overview-chart-card visual-overview-wide">
+      <div className="visual-overview-card-heading">
+        <div>
+          <h3>Environmental pressure trend</h3>
+          <p>Sample pollution and temperature observations</p>
+        </div>
+        <Waves size={18} />
+      </div>
+
+      <div className="visual-chart">
+        <ResponsiveContainer width="100%" height={250}>
+          <LineChart data={historicalData}>
+            <CartesianGrid
+              stroke="#243744"
+              strokeDasharray="3 4"
+            />
+            <XAxis
+              dataKey="month"
+              tick={{ fill: "#7f98a7", fontSize: 11 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              yAxisId="temp"
+              domain={[25, 32]}
+              tick={{ fill: "#7f98a7", fontSize: 10 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              yAxisId="pollution"
+              orientation="right"
+              domain={[0, 100]}
+              tick={{ fill: "#7f98a7", fontSize: 10 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              contentStyle={{
+                background: "#112330",
+                border: "1px solid #3b525f",
+                borderRadius: 8,
+                color: "#e3eef2",
+              }}
+            />
+            <Line
+              yAxisId="temp"
+              type="monotone"
+              dataKey="temperature"
+              name="Temperature °C"
+              stroke="#6dd8cf"
+              strokeWidth={2.5}
+              dot={{ r: 3 }}
+            />
+            <Line
+              yAxisId="pollution"
+              type="monotone"
+              dataKey="pollution"
+              name="Pollution index"
+              stroke="#e9bd69"
+              strokeWidth={2.5}
+              dot={{ r: 3 }}
+            />
+            <Legend
+              wrapperStyle={{ fontSize: 11, color: "#9bb0bc" }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="visual-demo-warning">
+        Illustrative data for interface testing only. These are not
+        verified environmental observations or live predictions.
+      </div>
+    </article>
+
+    {/* BUDGET MIX */}
+    <article className="visual-panel visual-overview-chart-card">
+      <div className="visual-overview-card-heading">
+        <div>
+          <h3>Conservation budget mix</h3>
+          <p>Illustrative intervention proportions</p>
+        </div>
+        <Wallet size={18} />
+      </div>
+
+      <div className="visual-chart">
+        <ResponsiveContainer width="100%" height={230}>
+          <PieChart>
+            <Pie
+              data={financePie}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="46%"
+              innerRadius={48}
+              outerRadius={77}
+              paddingAngle={3}
+              stroke="none"
+            >
+              {financePie.map((item, index) => (
+                <Cell key={item.name} fill={colors[index]} />
+              ))}
+            </Pie>
+            <Tooltip
+              formatter={(value) => `${value}%`}
+              contentStyle={{
+                background: "#112330",
+                border: "1px solid #3b525f",
+                borderRadius: 8,
+                color: "#e3eef2",
+              }}
+            />
+            <Legend
+              verticalAlign="bottom"
+              wrapperStyle={{ fontSize: 10, color: "#9bb0bc" }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+
+      <button
+        className="visual-overview-open-finance"
+        onClick={() => {
+          setActivePage("intelligence");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        Open finance optimizer <ArrowUpRight size={14} />
+      </button>
+    </article>
+  </div>
+</section>
+
 
         {/* GEOSPATIAL MAP */}
 
         <section
           className="visual-panel visual-map-panel"
           id="geospatial"
+          hidden={activePage !== "geospatial"}
         >
           <div className="visual-map-header">
             <SectionTitle
@@ -679,8 +1004,8 @@ export default function App() {
               className="orca-leaflet-map"
               preferCanvas={true}
             >
-              <MapResize />
-              <FlyToZone zone={selected} />
+              <MapResize active={activePage === "geospatial"} />
+              
 
               <TileLayer
                 url={
@@ -892,7 +1217,11 @@ export default function App() {
 
         {/* FORECAST AND ENVIRONMENTAL SIGNALS */}
 
-        <section className="visual-analysis-grid" id="forecast">
+        <section
+  className="visual-analysis-grid"
+  id="intelligence"
+  hidden={activePage !== "intelligence"}
+>
           <article className="visual-panel visual-chart-panel">
             <SectionTitle
               eyebrow="02 / SCENARIO ANALYSIS"
@@ -1152,6 +1481,7 @@ export default function App() {
         <section
           className="visual-panel visual-finance-panel"
           id="finance"
+          hidden={activePage !== "finance"}
         >
           <SectionTitle
             eyebrow="04 / CONSERVATION CAPITAL ALLOCATION"
@@ -1442,6 +1772,7 @@ export default function App() {
         <section
           className="visual-panel visual-register-panel"
           id="register"
+          hidden={activePage !== "register"}
         >
           <SectionTitle
             eyebrow="05 / PRIORITY REGISTER"

@@ -51,3 +51,761 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* =========================================
+   ORCA — LIGHT OCEAN THEME
+   Pastel blue • Cloud white • Seafoam
+   ========================================= */
+
+.orca-visual-app {
+  --page: #f3f8fd;
+  --surface: #ffffff;
+  --surface-soft: #f5f9ff;
+  --surface-blue: #eaf3ff;
+  --border: #dce7f2;
+  --border-strong: #c8d9eb;
+  --text: #243d58;
+  --text-soft: #526b84;
+  --text-muted: #7d91a6;
+  --blue: #79aee8;
+  --blue-deep: #477fb8;
+  --mint: #8bcdb4;
+  --lavender: #c3b6ed;
+  --coral: #e9919a;
+  --amber: #d7ad62;
+
+  background: var(--page);
+  color: var(--text);
+}
+
+.orca-visual-app * {
+  box-sizing: border-box;
+}
+
+.orca-visual-app button:focus-visible,
+.orca-visual-app input:focus-visible {
+  outline: 2px solid #77aee8;
+  outline-offset: 3px;
+}
+
+/* Sidebar */
+
+.visual-sidebar {
+  background: #edf4fc;
+  border-right: 1px solid var(--border);
+  box-shadow: 3px 0 18px #527ba508;
+}
+
+.visual-brand-icon {
+  color: #315f86;
+  background: #cfe7fa;
+}
+
+.visual-brand strong {
+  color: #29445f;
+}
+
+.visual-brand strong span {
+  color: #6c9ed3;
+}
+
+.visual-brand small,
+.visual-side-label {
+  color: #8499af;
+}
+
+.visual-nav {
+  color: #617992;
+}
+
+.visual-nav:hover {
+  color: #315e8b;
+  background: #e2edf9;
+}
+
+.visual-nav.active {
+  color: #3c76b0;
+  background: #dcecff;
+  border-color: #c2daf5;
+}
+
+.visual-sidebar-bottom {
+  border-top-color: var(--border);
+}
+
+.visual-online {
+  color: #438b70;
+}
+
+.visual-online i,
+.visual-top-right i {
+  background: #70b99a;
+  box-shadow: 0 0 7px #70b99a40;
+}
+
+.visual-sidebar-bottom p {
+  color: #748ba1;
+}
+
+.visual-sidebar-bottom strong {
+  color: #36546f;
+}
+
+.visual-sidebar-bottom small {
+  color: #8299ad;
+}
+
+/* Top navigation */
+
+.visual-topbar {
+  color: var(--text-soft);
+  border-bottom-color: var(--border);
+}
+
+.visual-breadcrumb {
+  color: var(--blue-deep);
+}
+
+.visual-top-right {
+  color: #69849c;
+}
+
+.visual-top-sep {
+  background: var(--border-strong);
+}
+
+/* Hero section */
+
+.visual-eyebrow {
+  color: #6489ae;
+}
+
+.visual-hero .visual-eyebrow span {
+  background: #80b8e9;
+}
+
+.visual-hero h1 {
+  color: #263f5a;
+}
+
+.visual-hero h1 em {
+  color: #639bd0;
+}
+
+.visual-hero p {
+  color: #667f98;
+}
+
+.visual-hero-badge {
+  background: linear-gradient(135deg, #ffffff, #eaf4ff);
+  border-color: #d4e5f5;
+  box-shadow: 0 5px 20px #527ba50b;
+}
+
+.visual-hero-badge > svg {
+  color: #679ed0;
+}
+
+.visual-hero-badge small {
+  color: #8097ad;
+}
+
+.visual-hero-badge strong {
+  color: #304c68;
+}
+
+.visual-hero-badge span {
+  color: #7289a0;
+}
+
+/* Summary cards */
+
+.visual-stat {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 4px 16px #527ba508;
+}
+
+.visual-stat-head {
+  color: #71879c;
+}
+
+.visual-stat > strong {
+  color: #29445f;
+}
+
+.visual-stat > small {
+  color: #7c90a4;
+}
+
+.stat-mini-track {
+  background: #e9eff6;
+}
+
+/* Panels and section headings */
+
+.visual-panel {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 5px 22px #527ba508;
+}
+
+.visual-section-title h2 {
+  color: #29445f;
+}
+
+.visual-section-title p {
+  color: #71869b;
+}
+
+.visual-title-icon {
+  color: #548dc3;
+  background: #e7f2ff;
+  border-color: #d6e7f7;
+}
+
+/* Buttons and filters */
+
+.visual-map-buttons button,
+.visual-filter-group button,
+.visual-layer-row button,
+.visual-finance-tabs button {
+  color: #617991;
+  background: #f6f9fd;
+  border-color: #dce7f2;
+}
+
+.visual-map-buttons button:hover,
+.visual-filter-group button:hover,
+.visual-layer-row button:hover {
+  background: #eaf3ff;
+}
+
+.visual-map-buttons button.selected,
+.visual-filter-group button.selected,
+.visual-layer-row button.selected {
+  color: #376fa9;
+  background: #e2efff;
+  border-color: #bcd7f3;
+}
+
+.visual-map-tools {
+  border-top-color: #e5edf5;
+}
+
+.visual-search {
+  color: #7d94aa;
+  background: #f8fbff;
+  border-color: #dce7f2;
+}
+
+.visual-search input {
+  color: #304b66;
+}
+
+.visual-search input::placeholder {
+  color: #95a6b8;
+}
+
+.visual-heat-toggle {
+  color: #617a92;
+}
+
+.visual-heat-toggle input,
+.visual-range input {
+  accent-color: #79aee8;
+}
+
+/* Map frame and overlays */
+
+.visual-map-container {
+  background: #e5eff8;
+  border-color: #d5e3f0;
+}
+
+.orca-leaflet-map {
+  background: #e5eff8;
+}
+
+.orca-visual-app .leaflet-control-attribution {
+  color: #526b83;
+  background: #ffffffed;
+}
+
+.orca-visual-app .leaflet-control-attribution a {
+  color: #477fb8;
+}
+
+.orca-visual-app .leaflet-control-zoom a {
+  color: #3c6288;
+  background: #ffffff;
+  border-color: #d4e2ef;
+}
+
+.orca-visual-app .leaflet-popup-content-wrapper,
+.orca-visual-app .leaflet-popup-tip {
+  color: #304a63;
+  background: #ffffff;
+  border-color: #dce7f2;
+}
+
+.orca-map-popup strong {
+  color: #29445f;
+}
+
+.orca-map-popup span {
+  color: #5c748c;
+}
+
+.visual-map-overlay {
+  color: #496783;
+  background: #ffffffed;
+  border-color: #d4e3f0;
+  box-shadow: 0 2px 8px #527ba510;
+}
+
+.visual-map-overlay-top svg {
+  color: #659dd1;
+}
+
+.visual-map-overlay-top i {
+  background: #65ae91;
+}
+
+.visual-map-overlay-bottom {
+  color: #58738c;
+}
+
+.visual-layer-row {
+  border-bottom-color: #e5edf5;
+}
+
+.visual-layer-row > span:first-child {
+  color: #7c93a8;
+}
+
+.visual-map-credit {
+  color: #8297aa;
+}
+
+/* Selected coastal zone */
+
+.visual-selected-location,
+.visual-zone-rank {
+  background: #f7faff;
+  border-color: #dfe9f3;
+}
+
+.visual-selected-location h3 {
+  color: #2c4965;
+}
+
+.visual-selected-location h3 svg {
+  color: #679ed0;
+}
+
+.visual-coordinate {
+  color: #8095aa;
+}
+
+.visual-selected-metrics > div {
+  background: #ffffff;
+  border-color: #e1eaf3;
+}
+
+.visual-selected-metrics small {
+  color: #7a90a5;
+}
+
+.visual-selected-metrics strong {
+  color: #2f4a65;
+}
+
+.visual-priority-note {
+  color: #826a38;
+  background: #fff8e9;
+  border-color: #f0e2bf;
+}
+
+.visual-priority-note svg {
+  color: #c39a4e;
+}
+
+.visual-rank-heading {
+  color: #667f96;
+}
+
+.visual-rank-heading small {
+  color: #91a2b3;
+}
+
+.visual-rank-row {
+  color: #3d5871;
+  border-bottom-color: #e4ecf4;
+}
+
+.visual-rank-row:hover {
+  background: #eaf3fd;
+}
+
+.visual-rank-number {
+  color: #8a9eb1;
+}
+
+.visual-rank-name i {
+  background: #e4ebf3;
+}
+
+/* Forecast charts */
+
+.visual-chart-highlight > div {
+  background: #f3f8ff;
+  border-color: #dfe9f4;
+}
+
+.visual-chart-highlight small {
+  color: #778da3;
+}
+
+.visual-chart-highlight strong {
+  color: #304c68;
+}
+
+.visual-chart-highlight strong span {
+  color: #8195a9;
+}
+
+.visual-range > div:first-child {
+  color: #71879c;
+}
+
+.visual-range > div:first-child strong {
+  color: #548dc3;
+}
+
+.visual-range-labels {
+  color: #8a9caf;
+}
+
+.visual-chart-subtitle {
+  color: #405b75;
+}
+
+.visual-chart-subtitle small {
+  color: #8297aa;
+}
+
+/* Recharts axes, grid, legend and tooltip */
+
+.orca-visual-app .recharts-cartesian-grid line {
+  stroke: #e5edf5 !important;
+}
+
+.orca-visual-app .recharts-cartesian-axis-line,
+.orca-visual-app .recharts-cartesian-axis-tick-line {
+  stroke: #dce6f0 !important;
+}
+
+.orca-visual-app .recharts-cartesian-axis-tick-value {
+  fill: #74899e !important;
+}
+
+.orca-visual-app .recharts-legend-item-text {
+  color: #607890 !important;
+}
+
+.orca-visual-app .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: #ffffff !important;
+  border: 1px solid #d6e4f2 !important;
+  border-radius: 9px !important;
+  box-shadow: 0 5px 20px #405f7d18;
+}
+
+.orca-visual-app .recharts-tooltip-label,
+.orca-visual-app .recharts-tooltip-item {
+  color: #38546e !important;
+}
+
+/* Environmental signal cards */
+
+.visual-signal-cards > div {
+  background: #f3f8ff;
+  border-color: #dfe9f4;
+}
+
+.visual-signal-cards svg {
+  color: #699fd0;
+}
+
+.visual-signal-cards small {
+  color: #778da2;
+}
+
+.visual-signal-cards strong {
+  color: #304b65;
+}
+
+.visual-signal-cards span {
+  color: #8799aa;
+}
+
+.visual-demo-warning {
+  color: #806a40;
+  background: #fff8e9;
+  border-color: #efe2c5;
+}
+
+/* Finance optimizer */
+
+.visual-budget-control,
+.visual-finance-summary {
+  background: #f6f9ff;
+  border-color: #dfe8f2;
+}
+
+.visual-budget-control label {
+  color: #71879c;
+}
+
+.visual-budget-input {
+  color: #568fc4;
+  background: #ffffff;
+  border-color: #d5e4f1;
+}
+
+.visual-budget-input input {
+  color: #2c4964;
+}
+
+.visual-budget-presets button {
+  color: #647d95;
+  background: #ffffff;
+  border-color: #dce7f2;
+}
+
+.visual-budget-presets button.selected {
+  color: #386fa7;
+  background: #e4f0ff;
+  border-color: #bfd8f2;
+}
+
+.visual-finance-summary > div {
+  background: #ffffff;
+  border-color: #e0e9f3;
+}
+
+.visual-finance-summary small {
+  color: #778da2;
+}
+
+.visual-finance-summary strong {
+  color: #4d8d78;
+}
+
+.visual-finance-tabs {
+  border-bottom-color: #dfe8f2;
+}
+
+.visual-finance-tabs button {
+  color: #71869b;
+}
+
+.visual-finance-tabs button.selected {
+  color: #447fb5;
+  border-bottom-color: #79aee8;
+}
+
+.visual-allocation-row {
+  border-bottom-color: #e3ebf3;
+}
+
+.visual-allocation-rank {
+  color: #4f8d7a;
+  background: #e4f4ed;
+  border-color: #cde8db;
+}
+
+.visual-allocation-details strong {
+  color: #304b65;
+}
+
+.visual-allocation-details small {
+  color: #7b90a4;
+}
+
+.visual-allocation-track {
+  background: #e6edf5;
+}
+
+.visual-allocation-track i {
+  background: linear-gradient(90deg, #91bdea, #91d4ba);
+}
+
+.visual-allocation-money strong {
+  color: #36516b;
+}
+
+.visual-allocation-money small {
+  color: #8296a9;
+}
+
+.visual-select-button {
+  color: #598ab9;
+  background: #ffffff;
+  border-color: #d7e4f0;
+}
+
+.visual-select-button:hover {
+  color: #376fa9;
+  background: #e8f3ff;
+  border-color: #b9d4ef;
+}
+
+.visual-finance-note {
+  color: #657e94;
+  background: #edf6ff;
+  border-color: #d5e7f7;
+}
+
+.visual-finance-note svg {
+  color: #6398c9;
+}
+
+.visual-finance-note strong {
+  color: #365570;
+}
+
+.visual-intervention-card {
+  background: #f6f9ff;
+  border-color: #dfe8f2;
+}
+
+.visual-intervention-card > svg {
+  color: #639bce;
+}
+
+.visual-intervention-card > span {
+  color: #425e78;
+}
+
+.visual-intervention-card > strong {
+  color: #4c927b;
+}
+
+.visual-intervention-card p {
+  color: #7b90a4;
+}
+
+.visual-portfolio-breakdown > div {
+  border-bottom-color: #e2eaf3;
+}
+
+.visual-portfolio-breakdown span {
+  color: #637b92;
+}
+
+.visual-portfolio-breakdown strong {
+  color: #36516b;
+}
+
+.visual-finance-footer {
+  border-top-color: #e1eaf3;
+}
+
+.visual-finance-footer > span {
+  color: #708d85;
+}
+
+.visual-finance-footer > span i {
+  background: #75b99b;
+}
+
+.visual-finance-footer button {
+  color: #467fac;
+  background: #e8f3ff;
+  border-color: #cbdff2;
+}
+
+.visual-finance-footer button:hover {
+  background: #dcecff;
+}
+
+/* Coastal risk register */
+
+.visual-register-card {
+  color: #3b5670;
+  background: #f8fbff;
+  border-color: #dce7f2;
+}
+
+.visual-register-card:hover,
+.visual-register-card.chosen {
+  background: #edf5ff;
+  border-color: #b9d5ef;
+}
+
+.visual-register-card-top {
+  color: #748ba0;
+}
+
+.visual-register-card-top svg {
+  color: #7e9bb5;
+}
+
+.visual-register-card > strong {
+  color: #304b65;
+}
+
+.visual-register-score {
+  color: #778da2;
+}
+
+.visual-register-score b small {
+  color: #8296a9;
+}
+
+.visual-register-meta {
+  color: #7c90a3;
+}
+
+.visual-register-meta b {
+  color: #405b74;
+}
+
+.visual-register-issue {
+  color: #71879c;
+  border-top-color: #e1eaf3;
+}
+
+.visual-empty {
+  color: #6f879c;
+}
+
+/* Footer */
+
+.visual-footer {
+  color: #8195a8;
+}
+
+.visual-footer button {
+  color: #587995;
+  background: #ffffff;
+  border-color: #dce7f2;
+}
+
+.visual-footer button:hover {
+  background: #eaf3ff;
+}
+
+/* Keep all light-theme elements usable on smaller screens */
+
+@media (max-width: 600px) {
+  .visual-sidebar {
+    background: #edf4fc;
+  }
+
+  .visual-map-container,
+  .orca-leaflet-map {
+    background: #e5eff8;
+  }
+}
