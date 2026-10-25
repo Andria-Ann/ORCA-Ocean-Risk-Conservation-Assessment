@@ -1,0 +1,32 @@
+# 03_read_queries.hbase  (run after 02_insert_data.hbase)
+# Run:  hbase shell 03_read_queries.hbase
+
+# --- GET: one complete record ---
+get 'marine_risk_ns:marine_risk', 'IND#2010'
+
+# --- GET: selected columns only ---
+get 'marine_risk_ns:marine_risk', 'IND#2010', {COLUMNS => ['info:country_name', 'metrics:mismanaged_waste_share_pct', 'analysis:mismanaged_risk_category']}
+
+# --- GET: a whole column family ---
+get 'marine_risk_ns:marine_risk', 'IND#2010', {COLUMNS => ['metrics']}
+
+# --- Record for a specified year (year is part of the row key) ---
+get 'marine_risk_ns:marine_risk', 'OWID_WRL#2015'
+
+# --- Nonexistent record: returns 0 row(s), no error ---
+get 'marine_risk_ns:marine_risk', 'IND#1999'
+exists 'marine_risk_ns:marine_risk'
+
+# --- SCAN: all rows ---
+scan 'marine_risk_ns:marine_risk'
+
+# --- SCAN: selected columns, first 5 rows ---
+scan 'marine_risk_ns:marine_risk', {COLUMNS => ['info:country_name', 'analysis:mismanaged_risk_category'], LIMIT => 5}
+
+# --- SCAN: row-key range (STOPROW is exclusive) ---
+scan 'marine_risk_ns:marine_risk', {STARTROW => 'IDN#2010', STOPROW => 'LKA#2011', COLUMNS => ['info:country_name']}
+scan 'marine_risk_ns:marine_risk', {STARTROW => 'OWID_WRL#2013', STOPROW => 'OWID_WRL#2016', COLUMNS => ['info:year', 'metrics:global_plastics_production_mt']}
+
+# --- Count rows ---
+count 'marine_risk_ns:marine_risk'
+exit

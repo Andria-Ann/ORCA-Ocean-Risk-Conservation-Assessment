@@ -1,0 +1,24 @@
+# 05_update_delete.hbase  (run after 02_insert_data.hbase)
+# Run:  hbase shell 05_update_delete.hbase
+# Uses only the ILLUSTRATIVE row ZZZ#2010 so the dataset rows stay intact.
+
+# --- Before ---
+get 'marine_risk_ns:marine_risk', 'ZZZ#2010', {COLUMNS => ['metrics:population', 'analysis:mismanaged_risk_category']}
+
+# --- UPDATE: put on an existing cell writes a new version ---
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'analysis:mismanaged_risk_category', 'MEDIUM'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:population', '1200000'
+get 'marine_risk_ns:marine_risk', 'ZZZ#2010', {COLUMNS => ['metrics:population', 'analysis:mismanaged_risk_category']}
+
+# --- Version history of one cell (metrics keeps up to 3 versions) ---
+get 'marine_risk_ns:marine_risk', 'ZZZ#2010', {COLUMN => 'metrics:population', VERSIONS => 3}
+
+# --- DELETE one cell ---
+delete 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:gdp_per_capita_ppp'
+get 'marine_risk_ns:marine_risk', 'ZZZ#2010', {COLUMN => 'metrics:gdp_per_capita_ppp'}
+
+# --- DELETE the entire row ---
+deleteall 'marine_risk_ns:marine_risk', 'ZZZ#2010'
+get 'marine_risk_ns:marine_risk', 'ZZZ#2010'
+count 'marine_risk_ns:marine_risk'
+exit

@@ -1,0 +1,10 @@
+# 07_cleanup.hbase
+# DESTRUCTIVE: removes ALL data, the table and the namespace.
+# Run only when you want to start over:  hbase shell 07_cleanup.hbase
+# Then re-run 01 and 02 to rebuild.
+
+disable 'marine_risk_ns:marine_risk'
+drop 'marine_risk_ns:marine_risk'
+drop_namespace 'marine_risk_ns'
+list_namespace
+exit
