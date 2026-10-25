@@ -1,0 +1,15 @@
+# 01_create_namespace_table.hbase
+# Creates the namespace and table, then shows them.
+# Run:  hbase shell 01_create_namespace_table.hbase
+
+create_namespace 'marine_risk_ns'
+
+# Three column families. metrics keeps 3 versions so cell history can be demonstrated.
+create 'marine_risk_ns:marine_risk', {NAME => 'info', VERSIONS => 1}, {NAME => 'metrics', VERSIONS => 3}, {NAME => 'analysis', VERSIONS => 1}
+
+list_namespace
+list_namespace_tables 'marine_risk_ns'
+list 'marine_risk_ns:.*'
+describe 'marine_risk_ns:marine_risk'
+exists 'marine_risk_ns:marine_risk'
+exit

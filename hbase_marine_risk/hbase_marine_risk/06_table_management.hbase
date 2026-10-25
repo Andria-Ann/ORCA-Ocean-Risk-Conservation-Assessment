@@ -1,0 +1,11 @@
+# 06_table_management.hbase
+# Run:  hbase shell 06_table_management.hbase
+# A table must be disabled before structural changes or dropping.
+
+is_enabled 'marine_risk_ns:marine_risk'
+disable 'marine_risk_ns:marine_risk'
+is_disabled 'marine_risk_ns:marine_risk'
+enable 'marine_risk_ns:marine_risk'
+is_enabled 'marine_risk_ns:marine_risk'
+describe_namespace 'marine_risk_ns'
+exit

@@ -1,0 +1,33 @@
+# 04_filters.hbase  (run after 02_insert_data.hbase)
+# Run:  hbase shell 04_filters.hbase
+# NOTE: all stored values are text, so comparisons below are text comparisons.
+
+# ===== ROW-KEY FILTERS (judge the row key only) =====
+# 1. Prefix on row key: all World production rows
+scan 'marine_risk_ns:marine_risk', {FILTER => "PrefixFilter('OWID_WRL')", COLUMNS => ['info:year', 'metrics:global_plastics_production_mt']}
+
+# 2. Shell shortcut for the same idea
+scan 'marine_risk_ns:marine_risk', {ROWPREFIXFILTER => 'IND', COLUMNS => ['info:country_name']}
+
+# 3. Regex on row key: every record for year 2010 (all countries)
+scan 'marine_risk_ns:marine_risk', {FILTER => "RowFilter(=, 'regexstring:.*#2010$')", COLUMNS => ['info:country_name']}
+
+# ===== VALUE FILTERS (judge cell contents) =====
+# 4. Rows whose risk category is HIGH. The last two 'true' flags drop rows lacking the column
+#    (filterIfMissing) and test only the latest version (latestVersionOnly).
+scan 'marine_risk_ns:marine_risk', {FILTER => "SingleColumnValueFilter('analysis', 'mismanaged_risk_category', =, 'binary:HIGH', true, true)", COLUMNS => ['info:country_name', 'metrics:mismanaged_waste_share_pct', 'analysis:mismanaged_risk_category']}
+
+# 5. Any cell whose value contains the text 'India'
+scan 'marine_risk_ns:marine_risk', {FILTER => "ValueFilter(=, 'substring:India')"}
+
+# ===== COLUMN FILTERS =====
+# 6. Only columns whose qualifier starts with 'per_capita'
+scan 'marine_risk_ns:marine_risk', {FILTER => "ColumnPrefixFilter('per_capita')", COLUMNS => ['metrics'], LIMIT => 3}
+
+# ===== COMBINED =====
+# 7. Row-key prefix 'I' AND risk category MEDIUM -> only IND#2010 (IDN is HIGH)
+scan 'marine_risk_ns:marine_risk', {FILTER => "PrefixFilter('I') AND SingleColumnValueFilter('analysis', 'mismanaged_risk_category', =, 'binary:MEDIUM', true, true)", COLUMNS => ['info:country_name', 'analysis:mismanaged_risk_category']}
+
+# 8. Row keys only (first cell of each row)
+scan 'marine_risk_ns:marine_risk', {FILTER => "FirstKeyOnlyFilter()"}
+exit

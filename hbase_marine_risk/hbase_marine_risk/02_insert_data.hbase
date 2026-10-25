@@ -1,0 +1,179 @@
+# 02_insert_data.hbase
+# Inserts 12 rows: 8 country-year rows (2010), 3 world production rows, 1 demo row.
+# Run:  hbase shell 02_insert_data.hbase
+#
+# DATA LABELS (stored in info:data_status):
+#   dataset_copy = values copied by hand from the project workbook (Datas.xlsx).
+#                  They are not independently re-verified, and the 2010
+#                  mismanaged-waste figures are modelled estimates, not
+#                  direct ocean measurements.
+#   illustrative = invented demo values with no real-world meaning.
+# analysis:* values are a demo classification by this project (rule below).
+#   mismanaged_waste_share_pct >= 5 -> HIGH ; >= 1 and < 5 -> MEDIUM ; < 1 -> LOW
+# All values are written as quoted strings on purpose (see README, limitations).
+
+# --- Australia (AUS#2010) ---
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'info:country_name', 'Australia'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'info:iso3', 'AUS'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'metrics:mismanaged_waste_share_pct', '0.0436'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'metrics:per_capita_mismanaged', '0.002'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'metrics:per_capita_plastic_waste', '0.112'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'metrics:gdp_per_capita_ppp', '41464.04007'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'metrics:population', '22155000'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'analysis:mismanaged_risk_category', 'LOW'
+put 'marine_risk_ns:marine_risk', 'AUS#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- China (CHN#2010) ---
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'info:country_name', 'China'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'info:iso3', 'CHN'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'metrics:mismanaged_waste_share_pct', '27.6966'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'metrics:per_capita_mismanaged', '0.092'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'metrics:per_capita_plastic_waste', '0.121'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'metrics:gdp_per_capita_ppp', '9525.818483'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'metrics:population', '1368811008'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'analysis:mismanaged_risk_category', 'HIGH'
+put 'marine_risk_ns:marine_risk', 'CHN#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- Indonesia (IDN#2010) ---
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'info:country_name', 'Indonesia'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'info:iso3', 'IDN'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'metrics:mismanaged_waste_share_pct', '10.1019'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'metrics:per_capita_mismanaged', '0.047'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'metrics:per_capita_plastic_waste', '0.057'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'metrics:gdp_per_capita_ppp', '8433.497357'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'metrics:population', '241834000'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'analysis:mismanaged_risk_category', 'HIGH'
+put 'marine_risk_ns:marine_risk', 'IDN#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- India (IND#2010) ---
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'info:country_name', 'India'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'info:iso3', 'IND'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'metrics:mismanaged_waste_share_pct', '1.8836'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'metrics:per_capita_mismanaged', '0.009'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'metrics:per_capita_plastic_waste', '0.01'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'metrics:gdp_per_capita_ppp', '4404.697005'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'metrics:population', '1234280960'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'analysis:mismanaged_risk_category', 'MEDIUM'
+put 'marine_risk_ns:marine_risk', 'IND#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- Sri Lanka (LKA#2010) ---
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'info:country_name', 'Sri Lanka'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'info:iso3', 'LKA'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'metrics:mismanaged_waste_share_pct', '4.9968'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'metrics:per_capita_mismanaged', '0.299'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'metrics:per_capita_plastic_waste', '0.357'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'metrics:gdp_per_capita_ppp', '8529.571442'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'metrics:population', '20262000'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'analysis:mismanaged_risk_category', 'MEDIUM'
+put 'marine_risk_ns:marine_risk', 'LKA#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- Philippines (PHL#2010) ---
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'info:country_name', 'Philippines'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'info:iso3', 'PHL'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'metrics:mismanaged_waste_share_pct', '5.9153'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'metrics:per_capita_mismanaged', '0.062'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'metrics:per_capita_plastic_waste', '0.075'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'metrics:gdp_per_capita_ppp', '5596.837288'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'metrics:population', '93967000'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'analysis:mismanaged_risk_category', 'HIGH'
+put 'marine_risk_ns:marine_risk', 'PHL#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- United States (USA#2010) ---
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'info:country_name', 'United States'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'info:iso3', 'USA'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'metrics:mismanaged_waste_share_pct', '0.8649'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'metrics:per_capita_mismanaged', '0.007'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'metrics:per_capita_plastic_waste', '0.335'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'metrics:gdp_per_capita_ppp', '49374.17889'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'metrics:population', '309011008'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'analysis:mismanaged_risk_category', 'LOW'
+put 'marine_risk_ns:marine_risk', 'USA#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- Vietnam (VNM#2010) ---
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'info:country_name', 'Vietnam'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'info:iso3', 'VNM'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'info:source', 'workbook: mismanaged_waste + per_capita sheets'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'metrics:mismanaged_waste_share_pct', '5.7588'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'metrics:per_capita_mismanaged', '0.09'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'metrics:per_capita_plastic_waste', '0.103'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'metrics:gdp_per_capita_ppp', '4408.168612'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'metrics:population', '87968000'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'analysis:mismanaged_risk_category', 'HIGH'
+put 'marine_risk_ns:marine_risk', 'VNM#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# --- World plastics production 2013 (OWID_WRL#2013) --- production only, NOT ocean pollution
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'info:country_name', 'World'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'info:iso3', 'OWID_WRL'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'info:year', '2013'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'info:record_type', 'world_year'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'info:source', 'workbook: global_plastics_production sheet'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2013', 'metrics:global_plastics_production_mt', '352'
+
+# --- World plastics production 2014 (OWID_WRL#2014) --- production only, NOT ocean pollution
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'info:country_name', 'World'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'info:iso3', 'OWID_WRL'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'info:year', '2014'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'info:record_type', 'world_year'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'info:source', 'workbook: global_plastics_production sheet'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2014', 'metrics:global_plastics_production_mt', '367'
+
+# --- World plastics production 2015 (OWID_WRL#2015) --- production only, NOT ocean pollution
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'info:country_name', 'World'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'info:iso3', 'OWID_WRL'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'info:year', '2015'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'info:record_type', 'world_year'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'info:source', 'workbook: global_plastics_production sheet'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'info:data_status', 'dataset_copy'
+put 'marine_risk_ns:marine_risk', 'OWID_WRL#2015', 'metrics:global_plastics_production_mt', '381'
+
+# --- ILLUSTRATIVE demo row (invented values; used for update/delete tests) ---
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'info:country_name', 'Demo Country'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'info:iso3', 'ZZZ'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'info:year', '2010'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'info:record_type', 'country_year'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'info:source', 'none (invented)'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'info:data_status', 'illustrative'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:mismanaged_waste_share_pct', '0.5000'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:per_capita_mismanaged', '0.010'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:per_capita_plastic_waste', '0.100'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:gdp_per_capita_ppp', '10000'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'metrics:population', '1000000'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'analysis:mismanaged_risk_category', 'LOW'
+put 'marine_risk_ns:marine_risk', 'ZZZ#2010', 'analysis:risk_basis', 'share_pct_threshold_v1'
+
+# Verify: expect 12 row(s)
+count 'marine_risk_ns:marine_risk'
+exit
